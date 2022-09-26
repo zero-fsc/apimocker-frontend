@@ -18,7 +18,6 @@ declare module '@vue/runtime-core' {
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     ARow: typeof import('ant-design-vue/es')['Row']
     ASpace: typeof import('ant-design-vue/es')['Space']
-    ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     Menu: typeof import('./src/components/Menu/menu.vue')['default']
     MenuItem: typeof import('./src/components/Menu/menu-item.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
