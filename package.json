@@ -6,11 +6,15 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "dll": "webpack --config=webpack.dll.js"
+    "dll": "webpack --config ./webpack.dll.js"
   },
   "dependencies": {
+    "add-asset-html-webpack-plugin": "^5.0.2",
     "ant-design-vue": "^3.2.12",
+    "axios": "^0.27.2",
     "core-js": "^3.8.3",
+    "moment": "^2.29.4",
+    "pinia": "^2.0.22",
     "vue": "^3.2.13",
     "vue-router": "^4.0.3",
     "webpack": "^5.74.0",
