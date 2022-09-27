@@ -8,23 +8,42 @@ const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const DllReferencePlugin = require('webpack').DllReferencePlugin
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
+const fs = require('fs')
+const files = fs.readdirSync('./dll')
+// 获取dll文件列表
+const dllReferencePluginArray = []
+const addAssetsPluginArray = []
+
+files.forEach(item => {
+  if (/\.manifest.json$/g.test(item)) {
+    dllReferencePluginArray.push(new DllReferencePlugin({
+      manifest: require(`./dll/${item}`)
+    }))
+  }
+
+  if (/\.js$/g.test(item)) {
+    addAssetsPluginArray.push(new AddAssetHtmlPlugin({
+      // dll文件位置
+      filepath: path.resolve(__dirname, `./dll/${item}`),
+      // dll 引用路径，请使用 绝对路径！！！
+      publicPath: '/dll',
+      // dll最终输出的目录
+      outputPath: './dll'
+    }))
+  }
+})
+
+console.log(addAssetsPluginArray);
+console.log(dllReferencePluginArray);
+
 module.exports = {
   configureWebpack: {
     plugins: [
       new SpeedMeasurePlugin(),
       new BundleAnalyzerPlugin(),
       // DLL预打包
-      new DllReferencePlugin({
-        manifest: require(`./dll/manifest.json`)
-      }),
-      new AddAssetHtmlPlugin({
-        // dll文件位置
-        filepath: path.resolve(__dirname, './dll/antd.js'),
-        // dll 引用路径，请使用 绝对路径！！！
-        publicPath: '/dll',
-        // dll最终输出的目录
-        outputPath: './dll'
-      }),
+      ...dllReferencePluginArray,
+      ...addAssetsPluginArray,
       AutoImport({
         include: [
           /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx

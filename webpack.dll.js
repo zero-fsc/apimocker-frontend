@@ -3,7 +3,8 @@ let webpack = require('webpack');
 module.exports = {
   mode: 'development',
   entry: {
-    'antd': ['@ant-design/icons-vue', 'lodash', 'ant-design-vue'],
+    'antd': ['@ant-design/icons-vue', 'ant-design-vue'],
+    'common': ['lodash', 'moment', 'axios']
   },
   output: {
     filename: '[name].js', //  产生的文件名字
@@ -14,7 +15,7 @@ module.exports = {
   plugins: [
     new webpack.DllPlugin({
       name: '[name]', // 要和output输出文件名字同名
-      path: path.resolve(__dirname, 'dll', 'manifest.json'),
+      path: path.resolve(__dirname, 'dll', '[name].manifest.json'),
     }),
   ],
 };
