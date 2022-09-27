@@ -33,9 +33,6 @@ files.forEach(item => {
   }
 })
 
-console.log(addAssetsPluginArray);
-console.log(dllReferencePluginArray);
-
 module.exports = {
   configureWebpack: {
     plugins: [

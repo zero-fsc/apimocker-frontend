@@ -1,14 +1,14 @@
 <template>
   <a-row>
-    <a-col :span="6">
+    <a-col :span="6" class="flex items-center">
       <div class="logo-title">
         <span>ApiMocker-接口管理平台</span>
       </div>
     </a-col>
     <a-col :span="12" />
     <a-col :span="6">
-      <div class="logout">
-        <div class="logout-user">
+      <div class="text-right">
+        <div class="cursor-pointer">
           <a-space>
             <user-outlined />
             <div class="dropdown-container">
@@ -66,22 +66,9 @@ const handleLogout = () => {
 
 .ant-row {
   height: 100%;
-
-  .ant-col {
-    &:first-child {
-      display: flex;
-      align-items: center;
-    }
-  }
 }
 
 .logout {
-  text-align: right;
-
-  .logout-user {
-    cursor: pointer;
-  }
-
   ::v-deep(.ant-dropdown-link) {
     color: #000000;
     font-size: 16px;
