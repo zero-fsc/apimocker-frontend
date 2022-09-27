@@ -1,60 +1,52 @@
-const {
-  defineConfig
-} = require('@vue/cli-service')
 const AutoImport = require('unplugin-auto-import/webpack')
 const Components = require('unplugin-vue-components/webpack')
 const {
-  AntDesignVueResolver,
-  Vue
+  AntDesignVueResolver
 } = require('unplugin-vue-components/resolvers')
+const path = require('path')
 const SpeedMeasurePlugin = require('speed-measure-webpack-plugin')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 const DllReferencePlugin = require('webpack').DllReferencePlugin
-const path = require('path')
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
-
-module.exports = defineConfig({
-  transpileDependencies: true,
-
+module.exports = {
   configureWebpack: {
     plugins: [
       new SpeedMeasurePlugin(),
       new BundleAnalyzerPlugin(),
       // DLL预打包
       new DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require(`./public/vendor/vue-manifest.json`)
-      }),
-      new DllReferencePlugin({
-        context: process.cwd(),
-        manifest: require(`./public/vendor/antd-manifest.json`)
+        manifest: require(`./dll/manifest.json`)
       }),
       new AddAssetHtmlPlugin({
         // dll文件位置
-        filepath: path.resolve(__dirname, './public/vendor/antd.dll.js'),
+        filepath: path.resolve(__dirname, './dll/antd.js'),
         // dll 引用路径，请使用 绝对路径！！！
-        publicPath: '/vendor',
+        publicPath: '/dll',
         // dll最终输出的目录
-        outputPath: './vendor'
-      }),
-      new AddAssetHtmlPlugin({
-        // dll文件位置
-        filepath: path.resolve(__dirname, './public/vendor/vue.dll.js'),
-        // dll 引用路径，请使用 绝对路径！！！
-        publicPath: '/vendor',
-        // dll最终输出的目录
-        outputPath: './vendor'
+        outputPath: './dll'
       }),
       AutoImport({
+        include: [
+          /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
+          /\.vue$/, /\.vue\?vue/, // .vue
+          /\.md$/, // .md
+        ],
         resolvers: [AntDesignVueResolver()],
         imports: ['vue'],
+        eslintrc: {
+          enabled: true,
+          filepath: './.eslintrc-auto-import.json',
+          globalsPropValue: true,
+        },
       }),
       Components({
         extensions: ['vue'],
         resolvers: [AntDesignVueResolver()],
-        dts: true,
-        deep: true
-      })
+      }),
     ]
+  },
+
+  pluginOptions: {
+    windicss: {}
   }
-})
+}

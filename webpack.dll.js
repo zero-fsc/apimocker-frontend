@@ -1,31 +1,20 @@
-const path = require('path')
-const webpack = require('webpack')
-
-// dll文件存放的目录
-const dllPath = 'public/vendor'
-
-
+let path = require('path');
+let webpack = require('webpack');
 module.exports = {
   mode: 'development',
-  // 需要提取的库文件
   entry: {
-    vue: ["vue", "vue-router", 'axios'],
-    antd: ["ant-design-vue"],
+    'antd': ['@ant-design/icons-vue', 'lodash', 'ant-design-vue'],
   },
   output: {
-    path: path.join(__dirname, dllPath),
-    filename: '[name].dll.js',
-    // vendor.dll.js中暴露出的全局变量名
-    // 保持与 webpack.DllPlugin 中名称一致
-    library: '[name]_[hash]'
+    filename: '[name].js', //  产生的文件名字
+    path: path.resolve(__dirname, 'dll'),
+    library: '[name]', //  导出的js文件  库名字叫做 ab
+    libraryTarget: 'var', // comomjs 规范
   },
   plugins: [
-    // 定义插件
     new webpack.DllPlugin({
-      path: path.join(__dirname, dllPath, '[name]-manifest.json'),
-      // 保持与 output.library 中名称一致
-      name: '[name]_[hash]',
-      context: process.cwd()
-    })
-  ]
-}
+      name: '[name]', // 要和output输出文件名字同名
+      path: path.resolve(__dirname, 'dll', 'manifest.json'),
+    }),
+  ],
+};
