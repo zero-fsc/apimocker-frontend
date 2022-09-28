@@ -7,6 +7,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    ABreadcrumb: typeof import('ant-design-vue/es')['Breadcrumb']
+    ABreadcrumbItem: typeof import('ant-design-vue/es')['BreadcrumbItem']
     ACol: typeof import('ant-design-vue/es')['Col']
     ADropdown: typeof import('ant-design-vue/es')['Dropdown']
     ALayout: typeof import('ant-design-vue/es')['Layout']
@@ -18,6 +20,7 @@ declare module '@vue/runtime-core' {
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     ARow: typeof import('ant-design-vue/es')['Row']
     ASpace: typeof import('ant-design-vue/es')['Space']
+    BreadCrumb: typeof import('./src/components/BreadCrumb/breadCrumb.vue')['default']
     Menu: typeof import('./src/components/Menu/menu.vue')['default']
     MenuItem: typeof import('./src/components/Menu/menu-item.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']

@@ -1,8 +1,8 @@
 <template>
   <a-row>
-    <a-col :span="6" class="flex items-center">
+    <a-col :span="6">
       <div class="logo-title">
-        <span>ApiMocker-接口管理平台</span>
+        <span>Api-Mocker接口统一管理平台</span>
       </div>
     </a-col>
     <a-col :span="12" />
@@ -42,8 +42,9 @@ import {
   UserOutlined,
   DownOutlined
 } from '@ant-design/icons-vue';
+import { Ref } from 'vue';
 
-const userName: string = ref<string>('Administator')
+const userName: Ref<string> = ref<string>('Administator')
 
 
 // 个人中心跳转

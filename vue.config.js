@@ -10,6 +10,7 @@ const DllReferencePlugin = require('webpack').DllReferencePlugin
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const fs = require('fs')
 const files = fs.readdirSync('./dll')
+const ProvidePlugin = require('webpack').ProvidePlugin
 // 获取dll文件列表
 const dllReferencePluginArray = []
 const addAssetsPluginArray = []
@@ -36,8 +37,8 @@ files.forEach(item => {
 module.exports = {
   configureWebpack: {
     plugins: [
-      new SpeedMeasurePlugin(),
-      new BundleAnalyzerPlugin(),
+      // new SpeedMeasurePlugin(),
+      // new BundleAnalyzerPlugin(),
       // DLL预打包
       ...dllReferencePluginArray,
       ...addAssetsPluginArray,
@@ -50,7 +51,7 @@ module.exports = {
         resolvers: [AntDesignVueResolver()],
         imports: ['vue'],
         eslintrc: {
-          enabled: true,
+          enabled: false,
           filepath: './.eslintrc-auto-import.json',
           globalsPropValue: true,
         },
@@ -59,6 +60,10 @@ module.exports = {
         extensions: ['vue'],
         resolvers: [AntDesignVueResolver()],
       }),
+
+      new ProvidePlugin({
+        $IS: [path.resolve(__dirname, './src/utils/is.ts'), 'default']
+      })
     ]
   },
 

@@ -19,3 +19,6 @@
 import { DesktopOutlined, PieChartOutlined } from '@ant-design/icons-vue'
 const selectedKeys2 = ref<string[]>(['1'])
 </script>
+
+<style lang="less" scoped>
+</style>
