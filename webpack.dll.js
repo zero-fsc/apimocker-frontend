@@ -3,7 +3,7 @@ let webpack = require('webpack');
 module.exports = {
   mode: 'development',
   entry: {
-    'antd': ['@ant-design/icons-vue', 'ant-design-vue'],
+    'antd': ['@ant-design/icons-vue', 'ant-design-vue', '@antv/g2'],
     'common': ['lodash', 'moment', 'axios']
   },
   output: {

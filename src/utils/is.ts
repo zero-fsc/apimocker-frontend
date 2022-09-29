@@ -10,6 +10,10 @@ export const isString = (value: any): value is string => {
   return typeof value === 'string'
 }
 
+export const isBoolean = (value: any): value is boolean => {
+  return typeof value === 'boolean'
+}
+
 export const isObject = (value: any): boolean => {
   return value !== null && is(value, 'Object')
 }

@@ -3,7 +3,7 @@
   <div class="main-container">
     <bread-crumb />
     <div class="main-content">
-
+      <router-view />
     </div>
   </div>
 </template>
