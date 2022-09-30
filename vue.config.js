@@ -11,6 +11,7 @@ const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin')
 const fs = require('fs')
 const files = fs.readdirSync('./dll')
 const ProvidePlugin = require('webpack').ProvidePlugin
+const { resolve } = require('path')
 // 获取dll文件列表
 const dllReferencePluginArray = []
 const addAssetsPluginArray = []
@@ -36,6 +37,13 @@ files.forEach(item => {
 
 module.exports = {
   configureWebpack: {
+    resolve: {
+      extensions: ['.ts'],
+      alias: {
+        '@': resolve('src'),
+        'is': resolve('./src/utils/is.ts')
+      }
+    },
     plugins: [
       // new SpeedMeasurePlugin(),
       // new BundleAnalyzerPlugin(),
@@ -62,7 +70,8 @@ module.exports = {
       }),
 
       new ProvidePlugin({
-        $IS: [path.resolve(__dirname, './src/utils/is.ts'), 'default']
+        $IS: 'is',
+        _: 'lodash'
       })
     ]
   },
